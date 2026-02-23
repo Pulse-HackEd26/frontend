@@ -15,10 +15,10 @@
         </div>
         <div class="checkboxes" id="checkboxes">
 
-            <input type="range" id="slider" min="0" max="9" list="sliderlabels" />
+            <input class="slider" type="range" id="slider" min="0" max="9" list="sliderlabels" />
             <datalist id="sliderlabels">
-            <option value="0" label="Worse"></option>
-            <option value="9" label="Better"></option>
+            <option value="0" label="Better"></option>
+            <option value="9" label="Worse"></option>
             </datalist>
 
         </div>
@@ -127,7 +127,7 @@
 
                 it = 0;
         }
-        document.getElementById("score").innerHTML = ((totalvalue / 7.5) * 100) + "%";
+        document.getElementById("score").innerHTML = (((totalvalue / 7.5) * 100)).toString().substring(0,4) + "%";
     }
 
     // Time selection
