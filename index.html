@@ -5,84 +5,144 @@
 </head>
 
 <body>
-    <div class="questionbox">
+    <div class="questionbox" id="questionbox">
         <h2> Questionnaire </h2>
+
         <h3 id="question"> </h3>
-        <label for="check0">
-            <input type="checkbox" id="check0" name="check0" value="check0">
-        </label>
-        <label for="check1">
-            <input type="checkbox" id="check1" name="check1" value="check1">
-        </label>
-        <label for="check2">
-            <input type="checkbox" id="check2" name="check2" value="check2">
-        </label>
-        <label for="check3">
-            <input type="checkbox" id="check3" name="check3" value="check3">
-        </label>
-        <label for="check4">
-            <input type="checkbox" id="check4" name="check4" value="check4">
-        </label>
-        <br /> <br /> <!-- Replace with CSS padding later -->
+        <div class="timesel" id="timesel">
+            <input type="time" id="start" name="start">
+            <input type="time" id="end" name="end">
+        </div>
+        <div class="checkboxes" id="checkboxes">
 
+            <input type="range" id="slider" min="0" max="9" list="sliderlabels" />
+            <datalist id="sliderlabels">
+            <option value="0" label="Worse"></option>
+            <option value="9" label="Better"></option>
+            </datalist>
+
+        </div>
+        <div class="timeselcal"">
+            <input id="timeselcal" type="datetime-local" name="timeselcal" />
+        </div>
+        <div class="sleephours">
+            <input id="sleephours" type="number" value="0" min="0" max="24">
+        </div>
+        <br />
         <button onclick="submit()"> Submit </button>
-
     </div>
+
+    <div class="stressscore">
+        <h3> Total Score: </h3> <h3 id="score"> </h3>
+     </div>
+
 </body>
 
 <script>
-    const questions = ["Question 1 Text", "Question 2 Text"];
+    document.getElementById("timesel").style.display="none"
+    document.getElementById("timeselcal").style.display="none"
+    document.getElementById("sleephours").style.display="none"
+
+
+    const questions = ["How are you feeling?", "How confident are you in your education/workplace?", "What are your working hours?", "How many hours of sleep did you get?", "When was the last time you exercised?"];
+
     var questionidx = 0;
     document.getElementById("question").innerHTML = questions[questionidx];
-    const checkboxes = [
-        document.querySelector("#check0"),
-        document.querySelector("#check1"),
-        document.querySelector("#check2"),
-        document.querySelector("#check3"),
-        document.querySelector("#check4"),
+
+    const time = [
+        document.querySelector("#start"),
+        document.querySelector("#end"),
+
     ]
 
-    var totalvalue = 0;
-    var it = 0;
-    var found = false;
 
+    var totalvalue = 0.0;
+    var found = false;
+    var addedsleep = false;
     // Logic for the submit button
     function submit() {
+        if (questionidx >= questions.length - 1) {
+            document.getElementById("questionbox").style.display="none"
+            questionidx = 0;
+        } else {
+            questionidx++;
+        }
         document.getElementById("question").innerHTML = questions[questionidx];
-        checkboxes.forEach(getValue);
-        totalvalue+= it;
-        it = 0;
-        console.log(totalvalue);
-        questionidx++;
+
         found = false;
-    }
 
-
-    // Ensure only one box can be checked at a time
-    checkboxes.forEach(eventListener)
-    var currentbox = null;
-    function eventListener(checkbox) {
-        checkbox.addEventListener("change", () => {
-            currentbox = checkbox;
-            checkboxes.forEach(uncheckBoxes);
-        });
-    }
-
-    function uncheckBoxes(checkbox) {
-        if (checkbox != currentbox) {
-            checkbox.checked = false;
+        switch (true) {
+            case questionidx <= 1:
+                document.getElementById("checkboxes").style.display="initial"
+                document.getElementById("timesel").style.display="none"
+                document.getElementById("sleephours").style.display="none"
+                document.getElementById("timeselcal").style.display="none"
+                break;
+            case questionidx <= 2:
+                document.getElementById("checkboxes").style.display="none"
+                document.getElementById("timesel").style.display="initial"
+                document.getElementById("sleephours").style.display="none"
+                document.getElementById("timeselcal").style.display="none"
+                break;
+            case questionidx <= 3:
+                document.getElementById("checkboxes").style.display="none"
+                document.getElementById("timesel").style.display="none"
+                document.getElementById("sleephours").style.display="initial"
+                document.getElementById("timeselcal").style.display="none"
+                break;
+            case questionidx <= 4:
+                document.getElementById("checkboxes").style.display="none"
+                document.getElementById("timesel").style.display="none"
+                document.getElementById("sleephours").style.display="none"
+                document.getElementById("timeselcal").style.display="initial"
+            default:
+                break;
         }
+
+        if (questionidx == 4 && !addedsleep) {
+            const hoursofsleep = parseInt(document.getElementById("sleephours").value);
+            var score = 0;
+            if (hoursofsleep > 8) {
+                score += hoursofsleep - 8;
+            }
+            if (hoursofsleep < 8) {
+                score += 8 - hoursofsleep
+            }
+            totalvalue += score * 0.25;
+            addedsleep = true;
+        }
+
+        if (questionidx < 3) {
+            var it = parseInt(document.getElementById("slider").value)
+                switch (questionidx) {
+                    case 1:
+                        totalvalue += (it + 1) * 0.15;
+                        break;
+                    case 2:
+                        totalvalue += (it + 1) * 0.2;
+                        break;
+                    default:
+                        break;
+                }
+
+                it = 0;
+        }
+        document.getElementById("score").innerHTML = ((totalvalue / 7.5) * 100) + "%";
     }
 
+    // Time selection
+    time[1].addEventListener("input", () => {
+        if (time[0].valueAsNumber > time[1].valueAsNumber) {
+            time[0].valueAsNumber = time[1].valueAsNumber;
+        }
 
-    function getValue(checkbox) {
-        if (checkbox.checked) {
-            found = true;
+    });
+    time[0].addEventListener("input", () => {
+       if (time[0].valueAsNumber > time[1].valueAsNumber) {
+            time[0].valueAsNumber = time[1].valueAsNumber;
         }
-        if (!found) {
-            it++;
-        }
-    }
+    });
+
 </script>
 
 </html>
