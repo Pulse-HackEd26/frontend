@@ -1,0 +1,88 @@
+<html>
+<link rel="stylesheet" href="stylesheet.css">
+<head>
+
+</head>
+
+<body>
+    <div class="questionbox">
+        <h2> Questionnaire </h2>
+        <h3 id="question"> </h3>
+        <label for="check0">
+            <input type="checkbox" id="check0" name="check0" value="check0">
+        </label>
+        <label for="check1">
+            <input type="checkbox" id="check1" name="check1" value="check1">
+        </label>
+        <label for="check2">
+            <input type="checkbox" id="check2" name="check2" value="check2">
+        </label>
+        <label for="check3">
+            <input type="checkbox" id="check3" name="check3" value="check3">
+        </label>
+        <label for="check4">
+            <input type="checkbox" id="check4" name="check4" value="check4">
+        </label>
+        <br /> <br /> <!-- Replace with CSS padding later -->
+
+        <button onclick="submit()"> Submit </button>
+
+    </div>
+</body>
+
+<script>
+    const questions = ["Question 1 Text", "Question 2 Text"];
+    var questionidx = 0;
+    document.getElementById("question").innerHTML = questions[questionidx];
+    const checkboxes = [
+        document.querySelector("#check0"),
+        document.querySelector("#check1"),
+        document.querySelector("#check2"),
+        document.querySelector("#check3"),
+        document.querySelector("#check4"),
+    ]
+
+    var totalvalue = 0;
+    var it = 0;
+    var found = false;
+
+    // Logic for the submit button
+    function submit() {
+        document.getElementById("question").innerHTML = questions[questionidx];
+        checkboxes.forEach(getValue);
+        totalvalue+= it;
+        it = 0;
+        console.log(totalvalue);
+        questionidx++;
+        found = false;
+    }
+
+
+    // Ensure only one box can be checked at a time
+    checkboxes.forEach(eventListener)
+    var currentbox = null;
+    function eventListener(checkbox) {
+        checkbox.addEventListener("change", () => {
+            currentbox = checkbox;
+            checkboxes.forEach(uncheckBoxes);
+        });
+    }
+
+    function uncheckBoxes(checkbox) {
+        if (checkbox != currentbox) {
+            checkbox.checked = false;
+        }
+    }
+
+
+    function getValue(checkbox) {
+        if (checkbox.checked) {
+            found = true;
+        }
+        if (!found) {
+            it++;
+        }
+    }
+</script>
+
+</html>
