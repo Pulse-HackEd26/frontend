@@ -2,9 +2,14 @@
 
 <link rel="stylesheet" href="css/stylesheet.css">
 <link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/login.css">
 
 <header>
-    <div class="topbar"></div>
+    <button class="logout" id="qlogout" onclick="logout()"> Logout <i class="nf nf-md-logout_variant"></i> </button>
+
+    <div class="topbar">
+
+    </div>
     <div class="logotext">
         <img width=450 src="logo_subtext.png"/>
     </div>
@@ -50,15 +55,27 @@
         <p id="action0"> 1</p>
         <p id="action1"> 2</p>
         <p id="action2"> 3</p>
-
     </div>
+    <div class="loginbox">
+        <button onclick="stats()" align="center"> See your statistics  <i class="nf nf-oct-graph"></i> </button>
     <div>
 
     </div>
     <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
     <script src="js/questionnaire.js"></script>
 
+    <script>
+        function logout() {
+            window.location.replace("./index.html");
+            document.cookie = "questionnairecompleted=" + "true";
+            var a = cookie;
+            document.cookie = cookie;
 
+        }
+        function stats() {
+            window.location.replace("./stats.html");
+        }
+    </script>
 </body>
 
 
