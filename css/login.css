@@ -1,0 +1,13 @@
+.loginbox {
+    justify-content: center;
+    display: flex;
+    padding: 3%;
+}
+.loginsubmit {
+    display: flex;
+    padding: 3%;
+    justify-content: center;
+}
+input {
+    margin: 1%;
+}
