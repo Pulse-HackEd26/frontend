@@ -2,6 +2,8 @@
 
 <link rel="stylesheet" href="css/stylesheet.css">
 <link rel="stylesheet" href="css/navbar.css">
+<link rel="stylesheet" href="css/login.css">
+
 
 <header>
     <div class="topbar"></div>
@@ -12,56 +14,41 @@
 
 <body>
 
-    <div class="questionbox" id="questionbox">
-        <h2> Questionnaire </h2>
+    <h3 align="center"> Log In: </h3>
+    <div class="loginbox">
 
-        <h3 id="question"> </h3>
-        <div class="timesel" id="timesel">
-            <input type="time" id="start" name="start">
-            <input type="time" id="end" name="end">
-        </div>
-        <div class="checkboxes" id="checkboxes">
+      <input
+      type="text"
+      id="uname"
+      name="name"
+      placeholder="Username" />
 
-            <input class="slider" type="range" id="slider" min="0" max="9" list="sliderlabels" />
-            <datalist id="sliderlabels">
-            <option value="0" label="Worse"></option>
-            <option value="9" label="Better"></option>
-            </datalist>
-
-        </div>
-        <div class="timeselcal"">
-            <input id="timeselcal" type="datetime-local" name="timeselcal" />
-        </div>
-        <div class="sleephours">
-            <input id="sleephours" type="number" value="0" min="0" max="24">
-        </div>
-        <br />
-        <button onclick="submit()"> Submit </button>
-    </div>
-
-    <div id="stressscore" class="stressscore">
-        <h3> Score </h3>
-        <canvas id="foo"> </canvas>
-        <h3 id="score"> </h3>
-    </div>
-
-    <div id="recommendations" class="recommendations">
-        <h3> Recommended Actions </h3>
-        <p id="action0"> 1</p>
-        <p id="action1"> 2</p>
-        <p id="action2"> 3</p>
-        <p id="action3"> 4</p>
-        <p id="action4"> 5</p>
+      <input
+      type="password"
+      id="pass"
+      name="pass"
+      placeholder="Password" />
 
     </div>
-    <div>
-
+    <div class="loginsubmit">
+          <button onclick="login()"> Login </button>
     </div>
-    <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
-    <script src="js/questionnaire.js"></script>
-
 
 </body>
 
-
+<script>
+    function login() {
+            var username = document.getElementById("uname").value
+            var password = document.getElementById("pass").value
+            document.cookie = "username=" + username;
+        	var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:8080/readUser", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                userName: username,
+                password: password,
+            }));
+            window.location.replace("./home.html");
+    }
+</script>
 </html>
