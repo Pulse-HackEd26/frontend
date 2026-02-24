@@ -3,6 +3,14 @@ document.getElementById("timeselcal").style.display="none"
 document.getElementById("sleephours").style.display="none"
 document.getElementById("recommendations").style.display="none"
 
+console.log(document.cookie)
+if (document.cookie.includes("questionnairecompleted=true")) {
+    document.getElementById("questionbox").style.display="none"
+    document.getElementById("recommendations").style.display="initial"
+} else {
+    document.getElementById("questionbox").style.display="initial"
+    document.getElementById("recommendations").style.display="none"
+}
 
 var opts = {
     angle: 0, // The span of the gauge arc
@@ -104,12 +112,11 @@ function submit() {
 	    	burnoutScore: scoreval,
             userName: username,
 	}));
-
+    document.cookie = "questionnairecompleted=" + "true";
     } else {
         questionidx++;
     }
     document.getElementById("question").innerHTML = questions[questionidx];
-
     found = false;
 
     switch (true) {
