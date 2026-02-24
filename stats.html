@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="css/stylesheet.css">
+<link rel="stylesheet" href="css/navbar.css">
+
+<header>
+    <button class="logout" id="qlogout" onclick="logout()"> Logout <i class="nf nf-md-logout_variant"></i> </button>
+    <div class="topbar"></div>
+    <div class="logotext">
+
+        <img width=450 src="logo_subtext.png"/>
+    </div>
+</header>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<body>
+<div class="graphsubtext">
+    <h3> Your Weekly Overview </h3>
+</div>
+<div class="graphtext">
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+</div>
+<div class="graphsubtext">
+    <button class="logout" id="qlogout" onclick="back()"> <i class="nf nf-md-keyboard_backspace"></i> Back to homepage </button>
+    <a href="./home.html">  </a>
+</div>
+
+
+
+</body>
+<script>
+function back() {
+    window.location.replace("./home.html");
+}
+const xValues = [1,2,3,4,5,6,7];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      data: [860,1140,1060,1060,1070,1110,1330],
+      borderColor: "#18A999",
+      fill: true
+    }]
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+</script>
+
+</html>
