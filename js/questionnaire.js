@@ -106,7 +106,7 @@ function submit() {
 	var xhr = new XMLHttpRequest();
     var username = document.cookie.replace("username=", "");
     console.log(username)
-	xhr.open("POST", "http://127.0.0.1:8080/sendForm", true);
+	xhr.open("POST", "https://backend-vy7b.onrender.com/sendForm", true); //xhr.open("POST", "http://127.0.0.1:8080/sendForm", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(JSON.stringify({
 	    	burnoutScore: scoreval,
