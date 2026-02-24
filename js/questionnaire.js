@@ -46,7 +46,7 @@ const score_5 = ["Slow mindful walk", "Seated breathing practice", "Gentle seate
 
 
 
-const questions = ["How are you feeling?", "How confident are you in your education/workplace?", "What are your working hours?", "How many hours of sleep did you get?", "When was the last time you exercised?"];
+const questions = ["How are you feeling today?", "How confident are you in your education/workplace?", "What are your working hours?", "How many hours of sleep did you get?", "When was the last time you exercised?"];
 
 var questionidx = 0;
 document.getElementById("question").innerHTML = questions[questionidx];
@@ -56,7 +56,6 @@ const time = [
     document.querySelector("#end"),
 ]
 
-const serveraddress = "http://127.0.0.1:8080/sendForm"
 var totalvalue = 0.0;
 var found = false;
 var addedsleep = false;
@@ -74,45 +73,36 @@ function submit() {
             document.getElementById("action0").innerHTML = score_0[0];
             document.getElementById("action1").innerHTML = score_0[1];
             document.getElementById("action2").innerHTML = score_0[2];
-            document.getElementById("action3").innerHTML = score_0[3];
-            document.getElementById("action4").innerHTML = score_0[4];
         } else if (scoreval >= 20 && scoreval < 40) {
             document.getElementById("action0").innerHTML = score_1[0];
             document.getElementById("action1").innerHTML = score_1[1];
             document.getElementById("action2").innerHTML = score_1[2];
-            document.getElementById("action3").innerHTML = score_1[3];
-            document.getElementById("action4").innerHTML = score_1[4];
         } else if (scoreval >= 40 && scoreval < 60) {
             document.getElementById("action0").innerHTML = score_2[0];
             document.getElementById("action1").innerHTML = score_2[1];
             document.getElementById("action2").innerHTML = score_2[2];
-            document.getElementById("action3").innerHTML = score_2[3];
-            document.getElementById("action4").innerHTML = score_2[4];
         } else if (scoreval >= 60 && scoreval < 80) {
             document.getElementById("action0").innerHTML = score_3[0];
             document.getElementById("action1").innerHTML = score_3[1];
             document.getElementById("action2").innerHTML = score_3[2];
-            document.getElementById("action3").innerHTML = score_3[3];
-            document.getElementById("action4").innerHTML = score_3[4];
         } else if (scoreval >= 80 && scoreval < 100) {
             document.getElementById("action0").innerHTML = score_4[0];
             document.getElementById("action1").innerHTML = score_4[1];
             document.getElementById("action2").innerHTML = score_4[2];
-            document.getElementById("action3").innerHTML = score_4[3];
-            document.getElementById("action4").innerHTML = score_4[4];
         } else if (scoreval === 100) {
             document.getElementById("action0").innerHTML = score_5[0];
             document.getElementById("action1").innerHTML = score_5[1];
             document.getElementById("action2").innerHTML = score_5[2];
-            document.getElementById("action3").innerHTML = score_5[3];
-            document.getElementById("action4").innerHTML = score_5[4];
         }
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", serveraddress, true);
+    var username = document.cookie.replace("username=", "");
+    console.log(username)
+	xhr.open("POST", "http://127.0.0.1:8080/sendForm", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(JSON.stringify({
-	    	burnoutScore: scoreval
+	    	burnoutScore: scoreval,
+            userName: username,
 	}));
 
     } else {
@@ -146,6 +136,8 @@ function submit() {
             document.getElementById("timesel").style.display="none"
             document.getElementById("sleephours").style.display="none"
             document.getElementById("timeselcal").style.display="initial"
+            document.getElementById("qsubmit").innerHTML = "Finish";
+
         default:
             break;
     }
