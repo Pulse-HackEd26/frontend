@@ -28,6 +28,17 @@
 
 </body>
 <script>
+ const response = fetch("http://127.0.0.1:8080/readForm", {
+                headers : {
+                "Content-Type":"application/json"
+                },
+                method : "POST",
+                body : JSON.stringify({
+                  userName: "Juniper",
+                })
+            });
+console.log(response);
+
 function back() {
     window.location.replace("./home.html");
 }
@@ -50,3 +61,11 @@ new Chart("myChart", {
 </script>
 
 </html>
+
+
+
+
+
+
+
+
