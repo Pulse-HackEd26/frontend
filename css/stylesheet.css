@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 .questionbox {
     color: rgba(72, 67, 73);
     background-color:rgba(247, 240, 240);
@@ -11,6 +14,8 @@
     margin-top:0%;
     align-content: center;
     position: fixed;
+    font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
+
 
 }
 
@@ -24,6 +29,8 @@
     flex: 2;
     text-align: center;
     align-content: center;
+    font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
+
 }
 
 datalist {
@@ -32,16 +39,50 @@ datalist {
     justify-content: space-between;
     padding-left: 10%;
     padding-right: 10%;
+    font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
 
 }
 
-.slider {
-  direction: rtl
-}
+//.slider {
+//  direction: rtl
+//}
 
 .recommendations {
     width: 100%;
     align-content: center;
     display: flex;
     text-align: center;
+}
+
+
+button {
+    display: inline-block;
+    background-color: rgba(24, 169, 153);
+    padding: 8px;
+    //width: 200px;
+    color: #ffffff;
+    text-align: center;
+    //border: 4px double #cccccc;
+    border-radius: 10px;
+    //font-size: 28px;
+    cursor: pointer;
+    //margin: 5px;
+    -webkit-transition: all 0.5s; /* add this line, chrome, safari, etc */
+    -moz-transition: all 0.5s; /* add this line, firefox */
+    -o-transition: all 0.5s; /* add this line, opera */
+    transition: all 0.5s; /* add this line */
+    color: black;
+    font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
+
+}
+button:hover {
+    background-color: rgba(138, 243, 255);
+}
+
+input {
+    border-color:  rgba(24, 169, 153);
+    border-radius: 10px;
+    padding: 1%;
+    font-family: 'Noto Sans', 'Noto Sans JP', sans-serif;
+
 }
