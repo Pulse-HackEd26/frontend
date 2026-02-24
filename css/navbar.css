@@ -1,0 +1,19 @@
+
+.topbar {
+    width: auto;
+    height: 3%;
+    padding: 2%;
+    background-color:rgba(24, 169, 153);
+    margin: 0;
+}
+.logotext {
+    width:100%;
+    justify-content: center;
+    display: flex;
+
+}
+
+body {
+    margin: 0;
+    background-color:rgba(247, 240, 240);
+}
