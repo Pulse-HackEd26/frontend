@@ -56,7 +56,7 @@ const time = [
     document.querySelector("#end"),
 ]
 
-const serveraddress = "http://127.0.0.1"
+const serveraddress = "http://127.0.0.1:8080/sendForm"
 var totalvalue = 0.0;
 var found = false;
 var addedsleep = false;
@@ -108,31 +108,12 @@ function submit() {
             document.getElementById("action4").innerHTML = score_5[4];
         }
 
-
-        const request = new Request(serveraddress, {
-            method: "POST",
-            body: '{"burnoutScore": \"' + scoreval + '\"}',
-        });
-
-        console.log('{"burnoutScore": \"' + scoreval + '\"}')
-        const url = request.url;
-        const method = request.method;
-        const credentials = request.credentials;
-        const bodyUsed = request.bodyUsed;
-        fetch(request)
-        .then((response) => {
-            if (response.status !== 200) {
-                throw new Error("Something went wrong on API server!");
-            }
-            return response.json();
-        })
-        .then((response) => {
-            console.debug(response);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", serveraddress, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+	    	burnoutScore: scoreval
+	}));
 
     } else {
         questionidx++;
