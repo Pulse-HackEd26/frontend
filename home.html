@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="css/stylesheet.css">
+<link rel="stylesheet" href="css/navbar.css">
+
+<header>
+    <div class="topbar"></div>
+    <div class="logotext">
+        <img width=450 src="logo_subtext.png"/>
+    </div>
+</header>
+
+<body>
+
+    <div class="questionbox" id="questionbox">
+        <h2> Questionnaire </h2>
+
+        <h3 id="question"> </h3>
+        <div class="timesel" id="timesel">
+            <input type="time" id="start" name="start">
+            <input type="time" id="end" name="end">
+        </div>
+        <div class="checkboxes" id="checkboxes">
+
+            <input class="slider" type="range" id="slider" min="0" max="9" list="sliderlabels" />
+            <datalist id="sliderlabels">
+            <option value="0" label="Overwhelmed"></option>
+            <option value="9" label="Relaxed"></option>
+            </datalist>
+
+        </div>
+        <div class="timeselcal"">
+            <input id="timeselcal" type="datetime-local" name="timeselcal" />
+        </div>
+        <div class="sleephours">
+            <input id="sleephours" type="number" value="0" min="0" max="24">
+        </div>
+        <br />
+        <button id="qsubmit" onclick="submit()"> Next </button>
+    </div>
+
+    <div id="stressscore" class="stressscore">
+        <h3> Score </h3>
+        <canvas id="foo"> </canvas>
+        <h3 id="score"> </h3>
+    </div>
+
+    <div id="recommendations" class="recommendations">
+        <h3> Recommended Actions </h3>
+        <p id="action0"> 1</p>
+        <p id="action1"> 2</p>
+        <p id="action2"> 3</p>
+
+    </div>
+    <div>
+
+    </div>
+    <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+    <script src="js/questionnaire.js"></script>
+
+
+</body>
+
+
+</html>
