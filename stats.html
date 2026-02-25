@@ -28,44 +28,73 @@
 
 </body>
 <script>
- const response = fetch("http://127.0.0.1:8080/readForm", {
-                headers : {
-                "Content-Type":"application/json"
-                },
-                method : "POST",
-                body : JSON.stringify({
-                  userName: "Juniper",
-                })
-            });
-console.log(response);
+
+        function logout() {
+            window.location.replace("./index.html");
+            document.cookie = "questionnairecompleted=" + "false";
+            var a = cookie;
+            document.cookie = cookie;
+
+        }
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+async function getResults() {
+    const response = await fetch(`http://127.0.0.1:8080/readForm/${getCookie("username")}`);
+    //console.log(await response.json());
+    var value = await response.json()//["burnoutscore"];
+
+    var valuesl = value.length
+
+    var values = [
+        0,0,0,0,0,0,0
+    ];
+    for (let i = 0; i < 7; i++) {
+      if (i < valuesl) {
+        values[i] = Number(value[i]["burnoutscore"]);
+      }
+      else {
+        values[i] = 0;
+      }
+
+    }
+
+    const xValues = [1,2,3,4,5,6,7];
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          data: values.reverse(),
+          borderColor: "#18A999",
+          fill: true
+        }]
+      },
+      options: {
+        legend: {display: false}
+      }
+    });
+
+}
 
 function back() {
     window.location.replace("./home.html");
 }
-const xValues = [1,2,3,4,5,6,7];
+getResults()
 
-new Chart("myChart", {
-  type: "line",
-  data: {
-    labels: xValues,
-    datasets: [{
-      data: [860,1140,1060,1060,1070,1110,1330],
-      borderColor: "#18A999",
-      fill: true
-    }]
-  },
-  options: {
-    legend: {display: false}
-  }
-});
 </script>
 
 </html>
-
-
-
-
-
-
-
-
