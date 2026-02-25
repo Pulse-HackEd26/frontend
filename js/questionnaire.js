@@ -56,7 +56,7 @@ async function getResults() {
 }
 
 console.log(document.cookie)
-if (document.cookie.includes("questionnairecompleted=true")) {
+if (getCookie("questionnairecompleted") == "true") {
     document.getElementById("questionbox").style.display="none"
     document.getElementById("recommendations").style.display="initial"
     getResults()
