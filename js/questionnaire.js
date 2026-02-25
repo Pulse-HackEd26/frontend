@@ -3,10 +3,64 @@ document.getElementById("timeselcal").style.display="none"
 document.getElementById("sleephours").style.display="none"
 document.getElementById("recommendations").style.display="none"
 
+var scoreval = 0;
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+async function getResults() {
+    const response = await fetch(`http://127.0.0.1:8080/readForm/${getCookie("username")}`);
+    //console.log(await response.json());
+    var value = await response.json()//["burnoutscore"];
+    scoreval = parseFloat(value[0]["burnoutscore"]);
+    gauge.set(scoreval);
+    document.getElementById("score").innerHTML = scoreval.toString().substring(0,4) + "%";
+
+    if (scoreval >= 0 && scoreval < 20) {
+        document.getElementById("action0").innerHTML = score_0[0];
+        document.getElementById("action1").innerHTML = score_0[1];
+        document.getElementById("action2").innerHTML = score_0[2];
+    } else if (scoreval >= 20 && scoreval < 40) {
+        document.getElementById("action0").innerHTML = score_1[0];
+        document.getElementById("action1").innerHTML = score_1[1];
+        document.getElementById("action2").innerHTML = score_1[2];
+    } else if (scoreval >= 40 && scoreval < 60) {
+        document.getElementById("action0").innerHTML = score_2[0];
+        document.getElementById("action1").innerHTML = score_2[1];
+        document.getElementById("action2").innerHTML = score_2[2];
+    } else if (scoreval >= 60 && scoreval < 80) {
+        document.getElementById("action0").innerHTML = score_3[0];
+        document.getElementById("action1").innerHTML = score_3[1];
+        document.getElementById("action2").innerHTML = score_3[2];
+    } else if (scoreval >= 80 && scoreval < 100) {
+        document.getElementById("action0").innerHTML = score_4[0];
+        document.getElementById("action1").innerHTML = score_4[1];
+        document.getElementById("action2").innerHTML = score_4[2];
+    } else if (scoreval === 100) {
+        document.getElementById("action0").innerHTML = score_5[0];
+        document.getElementById("action1").innerHTML = score_5[1];
+        document.getElementById("action2").innerHTML = score_5[2];
+    }
+
+}
+
 console.log(document.cookie)
 if (document.cookie.includes("questionnairecompleted=true")) {
     document.getElementById("questionbox").style.display="none"
     document.getElementById("recommendations").style.display="initial"
+    getResults()
+
 } else {
     document.getElementById("questionbox").style.display="initial"
     document.getElementById("recommendations").style.display="none"
@@ -72,7 +126,7 @@ function submit() {
     if (questionidx >= questions.length - 1) {
         document.getElementById("questionbox").style.display="none"
         document.getElementById("recommendations").style.display="initial"
-        var scoreval = (totalvalue / 7.5) * 100;
+        scoreval = (totalvalue / 7.5) * 100;
         gauge.set(scoreval);
         document.getElementById("score").innerHTML = scoreval.toString().substring(0,4) + "%";
         questionidx = 0;
